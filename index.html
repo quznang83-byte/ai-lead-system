@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI智能获客系统</title>
+<style>
+:root{--bg:#080d18;--panel:#101a2b;--panel2:#0c1422;--line:#1e2d45;--text:#e8f0ff;--muted:#8293ad;--blue:#438cff;--cyan:#38d5e8;--green:#32d296;--orange:#ffb454;--red:#ff6b7a}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 80% 0%,#13264a 0%,#080d18 48%);color:var(--text);font:14px/1.5 "Microsoft YaHei",Arial,sans-serif}
+button,input{font:inherit}button{cursor:pointer;border:0}.app{display:flex;min-height:100vh}.sidebar{width:238px;background:#0a1220;border-right:1px solid var(--line);padding:22px 14px;flex-shrink:0}.brand{display:flex;align-items:center;gap:11px;padding:4px 10px 28px}.logo{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#368cff,#35d4df);display:grid;place-items:center;font-size:20px;font-weight:800;color:#fff;box-shadow:0 8px 24px #238cff44}.brand b{font-size:15px}.brand small{display:block;color:var(--muted);font-size:11px;margin-top:2px}.navlabel{font-size:11px;color:#60738f;padding:13px 12px 8px;letter-spacing:1px}.nav button{width:100%;display:flex;align-items:center;gap:12px;padding:12px;border-radius:9px;background:transparent;color:#9eacc2;text-align:left;margin:3px 0}.nav button:hover,.nav button.active{background:#172944;color:#fff}.nav button.active{box-shadow:inset 3px 0 #4b9aff}.ico{width:20px;text-align:center;font-size:16px}.side-bottom{position:absolute;bottom:20px;width:208px;color:var(--muted);font-size:11px;border-top:1px solid var(--line);padding:14px 8px}
+.main{flex:1;min-width:0}.topbar{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 32px;background:#0b1422cc;position:sticky;top:0;z-index:2;backdrop-filter:blur(12px)}.crumb{color:var(--muted)}.crumb b{color:var(--text);font-weight:600}.topright{display:flex;align-items:center;gap:18px}.balance{background:#14243a;border:1px solid #284568;border-radius:9px;padding:8px 12px;color:#b8d7ff}.balance strong{color:#5ca4ff;margin-left:5px}.avatar{width:32px;height:32px;border-radius:50%;background:#244b77;display:grid;place-items:center}
+.content{max-width:1450px;margin:auto;padding:30px 32px 60px}.page{display:none}.page.active{display:block}.heading{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:24px}.heading h1{font-size:24px;margin:0 0 6px}.heading p{color:var(--muted);margin:0}.eyebrow{font-size:11px;color:#56a4ff;letter-spacing:1.5px;margin-bottom:7px}.grid{display:grid;gap:16px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:20px}.card{background:linear-gradient(145deg,#111e31,#0e1727);border:1px solid var(--line);border-radius:14px;padding:19px;box-shadow:0 10px 35px #00000012}.stat-top{display:flex;justify-content:space-between;color:var(--muted);font-size:12px}.stat-icon{width:34px;height:34px;border-radius:10px;background:#1b3555;display:grid;place-items:center;color:#70b2ff;font-size:17px}.stat-num{font-size:27px;font-weight:700;margin:13px 0 3px}.stat-note{font-size:11px;color:#7186a4}.layout2{grid-template-columns:1.4fr 1fr}.card h3{margin:0 0 15px;font-size:15px}.muted{color:var(--muted)}.btn{background:linear-gradient(100deg,#347ff0,#387fe0);color:white;padding:10px 16px;border-radius:8px;font-weight:600;box-shadow:0 5px 18px #2879e533}.btn:hover{filter:brightness(1.1)}.btn.secondary{background:#172840;border:1px solid #2a4160;color:#c6d7ef;box-shadow:none}.btn.ghost{background:transparent;border:1px solid var(--line);color:#aabbd2;box-shadow:none}.btn.small{padding:7px 11px;font-size:12px}.btn:disabled{opacity:.45;cursor:not-allowed}
+.field{display:flex;flex-direction:column;gap:7px;margin-bottom:15px}.field label{font-size:12px;color:#a7b8cf}.field input{width:100%;background:#091321;border:1px solid #263852;color:#eaf2ff;padding:12px;border-radius:8px;outline:none}.field input:focus{border-color:#438cff;box-shadow:0 0 0 3px #438cff22}.chips{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 17px}.chip{padding:7px 10px;border:1px solid #29405e;background:#13243a;color:#c2d4ed;border-radius:20px;font-size:12px;cursor:pointer}.chip.selected{border-color:#438cff;background:#163765;color:#fff}.tip{background:#102641;border:1px solid #1e4973;color:#9ccaff;border-radius:9px;padding:11px 13px;font-size:12px;margin:12px 0}.toolbar{display:flex;gap:10px;align-items:center;flex-wrap:wrap}.toolbar input{background:#0a1423;border:1px solid #263852;border-radius:8px;padding:9px 11px;color:#eaf2ff;min-width:200px}.tabs{display:flex;gap:7px;border-bottom:1px solid var(--line);margin:15px 0 18px}.tab{padding:10px 14px;background:transparent;color:var(--muted);border-bottom:2px solid transparent}.tab.active{color:#72b4ff;border-color:#438cff}.video-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.video{overflow:hidden;padding:0}.thumb{height:130px;background:linear-gradient(135deg,#17365a,#132039 60%,#16465a);display:flex;align-items:center;justify-content:center;font-size:34px;position:relative}.thumb:after{content:"模拟视频封面";position:absolute;bottom:9px;left:12px;font-size:10px;color:#a8c9ed}.video-body{padding:15px}.video-title{font-weight:600;min-height:43px}.video-meta{display:flex;justify-content:space-between;color:var(--muted);font-size:11px;margin:10px 0 13px}.table-wrap{overflow:auto;border:1px solid var(--line);border-radius:10px}table{width:100%;border-collapse:collapse;min-width:760px}th,td{text-align:left;padding:12px 13px;border-bottom:1px solid #1b2b41;font-size:12px}th{color:#8298b7;background:#111f32;font-weight:600}td{color:#cfdaeb}tr:last-child td{border-bottom:0}.tag{display:inline-block;padding:4px 8px;border-radius:20px;font-size:10px;background:#123c35;color:#55d9a6}.tag.mid{background:#3b301b;color:#ffc46c}.tag.low{background:#263143;color:#a8b6ca}.tag.na{background:#30273a;color:#d0a6e9}.empty{padding:36px;text-align:center;color:var(--muted)}.wallet{display:grid;grid-template-columns:1fr 1.2fr;gap:16px}.big-balance{font-size:36px;font-weight:750;color:#72b4ff;margin:10px 0}.pack-grid{grid-template-columns:repeat(3,1fr)}.pack{border:1px solid #29405e;background:#101d30;border-radius:12px;padding:18px}.pack h4{margin:0 0 7px}.pack strong{font-size:23px}.pack p{color:var(--muted);font-size:11px}.pack.recommended{border-color:#438cff;box-shadow:0 0 0 1px #438cff33}.notice{border-left:3px solid #e4a64d;background:#2b2419;color:#e6c48f;padding:11px 13px;border-radius:5px;font-size:12px;margin-top:15px}
+.modal-bg{display:none;position:fixed;inset:0;background:#020610bb;z-index:5;align-items:center;justify-content:center;padding:20px}.modal-bg.show{display:flex}.modal{width:min(540px,100%);background:#111d2e;border:1px solid #2b4160;border-radius:15px;padding:22px;box-shadow:0 25px 80px #0009}.modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:15px}.close{background:transparent;color:#9fb0c8;font-size:22px}.toast{position:fixed;right:25px;bottom:25px;background:#173c36;border:1px solid #2d8069;color:#b4ffe5;padding:12px 17px;border-radius:9px;display:none;z-index:10}.toast.show{display:block}.footer-note{font-size:11px;color:#647895;margin-top:18px}
+@media(max-width:1000px){.sidebar{width:190px}.stats{grid-template-columns:repeat(2,1fr)}.video-grid{grid-template-columns:repeat(2,1fr)}.content{padding:24px 18px}.topbar{padding:0 18px}}
+@media(max-width:700px){.sidebar{width:60px;padding:15px 7px}.brand{padding:4px 3px 22px}.brand div:last-child,.navlabel,.nav button span:last-child,.side-bottom{display:none}.nav button{justify-content:center;padding:12px 5px}.main{min-width:0}.topbar{height:60px}.content{padding:20px 12px}.heading{display:block}.heading .btn{margin-top:14px}.stats,.layout2,.wallet,.pack-grid,.video-grid{grid-template-columns:1fr}.topright .balance{font-size:11px}.stat-num{font-size:24px}}
+</style>
+</head>
+<body>
+<div class="app">
+<aside class="sidebar">
+  <div class="brand"><div class="logo">AI</div><div><b>AI智能获客系统</b><small>INTELLIGENT LEAD PLATFORM</small></div></div>
+  <div class="navlabel">工作空间</div>
+  <nav class="nav">
+    <button class="active" data-page="dashboard"><span class="ico">▦</span><span>工作台</span></button>
+    <button data-page="search"><span class="ico">⌕</span><span>关键词搜索</span></button>
+    <button data-page="videos"><span class="ico">▣</span><span>视频与评论</span></button>
+    <button data-page="leads"><span class="ico">▤</span><span>线索数据表</span></button>
+  </nav>
+  <div class="navlabel">账户中心</div>
+  <nav class="nav">
+    <button data-page="wallet"><span class="ico">◈</span><span>算力充值</span></button>
+    <button data-page="records"><span class="ico">◷</span><span>消费记录</span></button>
+    <button data-page="admin"><span class="ico">⚙</span><span>管理后台</span></button>
+  </nav>
+  <div class="side-bottom">第一版本地演示原型<br>数据仅保存在当前浏览器</div>
+</aside>
+<main class="main">
+<header class="topbar"><div class="crumb">工作空间　/　<b id="crumb">工作台</b></div><div class="topright"><div class="balance">当前算力 <strong id="topBalance">1,000,000</strong></div><div class="avatar">企</div></div></header>
+<div class="content">
+<section class="page active" id="page-dashboard">
+  <div class="heading"><div><div class="eyebrow">OVERVIEW</div><h1>工作台</h1><p>欢迎使用 AI智能获客系统，开始发现公开内容中的潜在需求。</p></div><button class="btn" onclick="showPage('search')">＋ 开始搜索</button></div>
+  <div class="grid stats">
+    <div class="card"><div class="stat-top"><span>累计搜索任务</span><span class="stat-icon">⌕</span></div><div class="stat-num" id="statTasks">0</div><div class="stat-note">本地演示数据</div></div>
+    <div class="card"><div class="stat-top"><span>发现视频</span><span class="stat-icon">▣</span></div><div class="stat-num" id="statVideos">0</div><div class="stat-note">搜索结果累计数量</div></div>
+    <div class="card"><div class="stat-top"><span>采集评论</span><span class="stat-icon">☷</span></div><div class="stat-num" id="statComments">0</div><div class="stat-note">模拟评论数量</div></div>
+    <div class="card"><div class="stat-top"><span>剩余算力点</span><span class="stat-icon">◈</span></div><div class="stat-num" id="statBalance">1,000,000</div><div class="stat-note">测试账户额度</div></div>
+  </div>
+  <div class="grid layout2">
+    <div class="card"><h3>快速开始</h3><p class="muted">输入行业或需求关键词，生成扩展词并选择要搜索的词。</p><div class="field"><label>核心关键词</label><input id="quickKeyword" placeholder="例如：餐饮加盟、火锅加盟" /></div><button class="btn" onclick="quickStart()">创建搜索任务</button><div class="tip">当前为前端演示版本，搜索结果使用模拟数据，不会访问抖音。</div></div>
+    <div class="card"><h3>最近任务</h3><div id="recentTasks" class="empty">暂无搜索任务。创建第一个任务后，这里会显示搜索记录。</div></div>
+  </div>
+</section>
+<section class="page" id="page-search">
+  <div class="heading"><div><div class="eyebrow">KEYWORD DISCOVERY</div><h1>关键词搜索</h1><p>先输入核心关键词，再由系统给出扩展建议，企业自行勾选搜索词。</p></div></div>
+  <div class="card">
+    <div class="field"><label>核心关键词</label><input id="mainKeyword" placeholder="例如：餐饮加盟" /></div>
+    <div class="toolbar"><button class="btn" onclick="generateKeywords()">✦ AI生成扩展关键词</button><span class="muted" style="font-size:11px">演示版使用本地规则生成，不调用付费模型</span></div>
+    <div id="keywordArea" style="display:none;margin-top:20px"><h3>选择要搜索的关键词</h3><p class="muted" style="font-size:12px">点击关键词可勾选或取消，也可以添加自己的关键词。</p><div class="chips" id="keywordChips"></div><div class="toolbar"><input id="customKeyword" placeholder="添加自定义关键词" /><button class="btn secondary small" onclick="addKeyword()">＋ 添加</button></div><div class="tip">建议先选择与目标客户需求相关的词。排除词和高级筛选将在后续版本完善。</div><button class="btn" onclick="startSearch()">开始搜索并采集评论</button></div>
+  </div>
+</section>
+<section class="page" id="page-videos">
+  <div class="heading"><div><div class="eyebrow">VIDEO RESULTS</div><h1>视频与评论</h1><p>按视频查看模拟搜索结果及评论内容。</p></div><button class="btn secondary" onclick="showPage('search')">＋ 新建搜索</button></div>
+  <div id="videoResults" class="grid video-grid"><div class="card empty" style="grid-column:1/-1">还没有搜索结果，请先创建搜索任务。</div></div>
+</section>
+<section class="page" id="page-leads">
+  <div class="heading"><div><div class="eyebrow">LEAD DATABASE</div><h1>线索数据表</h1><p>汇总不同视频下的评论，支持筛选和导出CSV（Excel可打开）。</p></div><button class="btn" onclick="exportCSV()">↓ 导出Excel表格</button></div>
+  <div class="card"><div class="toolbar" style="justify-content:space-between;margin-bottom:15px"><div class="toolbar"><input id="leadSearch" placeholder="搜索评论、昵称或关键词" oninput="renderLeads()" /><select id="intentFilter" onchange="renderLeads()" style="background:#0a1423;border:1px solid #263852;border-radius:8px;padding:9px;color:#dce8f8"><option value="">全部意向等级</option><option>高意向</option><option>中意向</option><option>低意向</option><option>无法判断</option></select></div><span class="muted" id="leadCount">0条记录</span></div><div class="table-wrap"><table><thead><tr><th>评论者</th><th>评论内容</th><th>来源视频</th><th>评论时间</th><th>AI意向判断</th></tr></thead><tbody id="leadRows"><tr><td colspan="5" class="empty">暂无数据</td></tr></tbody></table></div><div class="footer-note">说明：用户信息仅展示演示昵称；真实数据字段取决于合法数据源实际提供的范围。</div></div>
+</section>
+<section class="page" id="page-wallet">
+  <div class="heading"><div><div class="eyebrow">CREDITS & BILLING</div><h1>算力充值</h1><p>企业预付费购买算力点，使用功能时按规则扣除。</p></div></div>
+  <div class="wallet">
+    <div class="card"><div class="muted">当前账户算力点</div><div class="big-balance" id="walletBalance">1,000,000</div><div class="muted" style="font-size:11px">测试赠送额度 · 非真实货币余额</div><button class="btn secondary" style="margin-top:18px" onclick="showPage('records')">查看消费记录</button></div>
+    <div class="card"><h3>充值套餐（演示）</h3><div class="grid pack-grid">
+      <div class="pack"><h4>体验套餐</h4><strong>¥100</strong><p>赠送 100,000 算力点</p><button class="btn secondary small" onclick="testRecharge(100,100000)">模拟充值</button></div>
+      <div class="pack recommended"><h4>标准套餐</h4><strong>¥500</strong><p>赠送 550,000 算力点</p><button class="btn small" onclick="testRecharge(500,550000)">模拟充值</button></div>
+      <div class="pack"><h4>企业套餐</h4><strong>¥1,000</strong><p>赠送 1,200,000 算力点</p><button class="btn secondary small" onclick="testRecharge(1000,1200000)">模拟充值</button></div>
+    </div><div class="notice">当前按钮只模拟充值，不会真实扣款，也不会收到任何钱。正式上线前需申请微信支付/支付宝商户接口。</div></div>
+  </div>
+</section>
+<section class="page" id="page-records">
+  <div class="heading"><div><div class="eyebrow">USAGE HISTORY</div><h1>消费记录</h1><p>查看算力点的模拟扣除和充值明细。</p></div></div>
+  <div class="card"><div class="table-wrap"><table><thead><tr><th>时间</th><th>操作类型</th><th>说明</th><th>变动算力点</th><th>余额</th></tr></thead><tbody id="recordRows"><tr><td colspan="5" class="empty">暂无记录</td></tr></tbody></table></div></div>
+</section>
+<section class="page" id="page-admin">
+  <div class="heading"><div><div class="eyebrow">ADMIN CONSOLE</div><h1>管理后台</h1><p>原型中的运营数据总览，正式版将加入真实企业账户与权限管理。</p></div></div>
+  <div class="grid stats">
+    <div class="card"><div class="stat-top">模拟企业账户</div><div class="stat-num">1</div><div class="stat-note">当前本地演示账户</div></div>
+    <div class="card"><div class="stat-top">累计模拟充值</div><div class="stat-num" id="adminRecharge">¥0</div><div class="stat-note">不代表真实收款</div></div>
+    <div class="card"><div class="stat-top">累计算力消耗</div><div class="stat-num" id="adminSpent">0</div><div class="stat-note">演示扣费记录</div></div>
+    <div class="card"><div class="stat-top">数据来源</div><div class="stat-num" style="font-size:18px">本地模拟</div><div class="stat-note">尚未接入抖音数据源</div></div>
+  </div>
+  <div class="card"><h3>功能说明</h3><p class="muted">正式系统需要增加管理员登录、企业注册、权限隔离、支付回调验签、额度账本、模型供应商配置、API密钥安全存储等后端能力。不能仅靠浏览器前端保护真实资金或额度。</p></div>
+</section>
+</div>
+</main>
+</div>
+<div class="modal-bg" id="commentModal"><div class="modal"><div class="modal-head"><h3 id="modalTitle">视频评论</h3><button class="close" onclick="closeModal()">×</button></div><div class="muted" id="modalMeta" style="font-size:11px;margin-bottom:12px"></div><div id="modalComments"></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const sampleComments=[
+["用户A","想加盟一家火锅店，大概需要多少钱？","高意向","10分钟前"],
+["用户B","手里有20万，能做什么餐饮项目？","高意向","25分钟前"],
+["用户C","这个品牌怎么联系？","高意向","1小时前"],
+["用户D","现在餐饮加盟还赚钱吗？","中意向","2小时前"],
+["用户E","开个小店需要准备哪些东西？","中意向","3小时前"],
+["用户F","看着还不错，先了解一下","低意向","昨天"],
+["用户G","哈哈哈，加盟就发财了","无法判断","昨天"]
+];
+function loadData(key, fallback) {
+  try {
+    const data = localStorage.getItem(key);
+    return data ? JSON.parse(data) : fallback;
+  } catch {
+    return fallback;
+  }
+}
+
+let balance = Number(localStorage.getItem("lead_balance") || 1000000);
+let tasks = loadData("lead_tasks", []);
+let records = loadData("lead_records", []);
+let leads = loadData("lead_leads", []);
+let videos = loadData("lead_videos", []);
+let rechargeTotal = 0;
+const expansions={
+"餐饮加盟":["火锅加盟","餐饮创业","开餐饮店","加盟项目推荐","餐饮投资","早餐加盟","开店需要多少钱","餐饮品牌加盟","20万创业"],
+"火锅加盟":["火锅店加盟费用","火锅创业项目","开火锅店需要多少钱","火锅品牌加盟","火锅投资预算","火锅店怎么选址","小火锅加盟"],
+"美容院":["美容院加盟","美容店创业","美容项目投资","美容院获客","美容机构经营","美容院加盟费用"],
+"律师事务所":["法律咨询获客","企业法律顾问","律师事务所营销","法律服务需求","找律师咨询"]
+};
+function money(n){return Number(n).toLocaleString("en-US")}
+function save(){
+  localStorage.setItem("lead_balance", balance);
+  localStorage.setItem("lead_tasks", JSON.stringify(tasks));
+  localStorage.setItem("lead_records", JSON.stringify(records));
+  localStorage.setItem("lead_leads", JSON.stringify(leads));
+  localStorage.setItem("lead_videos", JSON.stringify(videos));
+}
+function toast(s){let t=document.getElementById("toast");t.textContent=s;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
+function showPage(p){document.querySelectorAll(".page").forEach(x=>x.classList.remove("active"));document.getElementById("page-"+p).classList.add("active");document.querySelectorAll(".nav button").forEach(b=>b.classList.toggle("active",b.dataset.page===p));let names={dashboard:"工作台",search:"关键词搜索",videos:"视频与评论",leads:"线索数据表",wallet:"算力充值",records:"消费记录",admin:"管理后台"};document.getElementById("crumb").textContent=names[p];if(p==="leads")renderLeads();if(p==="videos")renderVideos();if(p==="records")renderRecords();updateUI()}
+document.querySelectorAll(".nav button").forEach(b=>b.addEventListener("click",()=>showPage(b.dataset.page)));
+function updateUI(){document.getElementById("topBalance").textContent=money(balance);document.getElementById("walletBalance").textContent=money(balance);document.getElementById("statBalance").textContent=money(balance);document.getElementById("statTasks").textContent=tasks.length;document.getElementById("statVideos").textContent=videos.length;document.getElementById("statComments").textContent=leads.length;document.getElementById("adminRecharge").textContent="¥"+money(rechargeTotal);document.getElementById("adminSpent").textContent=money(records.filter(r=>r.delta<0).reduce((a,r)=>a-r.delta,0));}
+function quickStart(){let v=document.getElementById("quickKeyword").value.trim();if(!v){toast("请先输入核心关键词");return}document.getElementById("mainKeyword").value=v;showPage("search");generateKeywords()}
+function generateKeywords(){let k=document.getElementById("mainKeyword").value.trim();if(!k){toast("请先输入核心关键词");return}let words=expansions[k]||[k+"加盟",""+k+"费用",""+k+"创业",""+k+"投资",""+k+"怎么做",""+k+"项目推荐",""+k+"需要多少钱"];selectedWords=[k,...words.filter(x=>x!==k)];document.getElementById("keywordArea").style.display="block";renderChips();toast("已生成扩展词，请勾选搜索范围")}
+function renderChips(){document.getElementById("keywordChips").innerHTML=selectedWords.map((w,i)=>`<span class="chip selected" onclick="toggleWord(${i})">${esc(w)} ✓</span>`).join("")}
+function toggleWord(i){let w=selectedWords[i];let el=document.querySelectorAll("#keywordChips .chip")[i];if(el.classList.contains("selected"))el.classList.remove("selected");else el.classList.add("selected")}
+function addKeyword(){let v=document.getElementById("customKeyword").value.trim();if(!v)return;if(selectedWords.includes(v)){toast("这个关键词已经存在");return}selectedWords.push(v);document.getElementById("customKeyword").value="";renderChips()}
+
+async function startSearch() {
+  const chosen = [...document.querySelectorAll("#keywordChips .chip")]
+    .filter(x => x.classList.contains("selected"))
+    .map(x => x.textContent.replace(" ✓", "").trim());
+
+  if (!chosen.length) {
+    toast("请至少勾选一个关键词");
+    return;
+  }
+
+  const cost = 500;
+
+  if (balance < cost) {
+    toast("算力点不足，请先充值");
+    showPage("wallet");
+    return;
+  }
+
+  try {
+    const response = await fetch("/api/search", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ keyword: chosen[0] })
+    });
+
+    const result = await response.json();
+
+    if (!response.ok || !result.success) {
+      throw new Error(result.message || "搜索失败");
+    }
+
+    balance -= cost;
+    save();
+
+    records.unshift({
+      time: new Date().toLocaleString(),
+      type: "搜索任务",
+      desc: "前后端接口搜索",
+      delta: -cost,
+      balance
+    });
+
+    tasks.unshift({
+      id: tasks.length + 1,
+      keyword: chosen[0],
+      time: new Date().toLocaleString(),
+      count: result.total
+    });
+
+    result.results.forEach(item => {
+      leads.unshift({
+        user: item.name,
+        comment: item.demand,
+        intent: item.intention,
+        time: new Date().toLocaleString(),
+        video: "后端接口返回",
+        keyword: chosen[0]
+      });
+    });
+save();
+    updateUI();
+    renderLeads();
+    renderRecent();
+    showPage("leads");
+    toast("搜索成功，已获取 " + result.total + " 条模拟线索");
+
+  } catch (error) {
+    toast("搜索失败：" + error.message);
+  }
+}
+
+function renderRecent(){let el=document.getElementById("recentTasks");if(!tasks.length){el.className="empty";el.textContent="暂无搜索任务。创建第一个任务后，这里会显示搜索记录。";return}el.className="";el.innerHTML=tasks.slice(0,4).map(t=>`<div style="padding:10px 0;border-bottom:1px solid #1b2b41"><b>${esc(t.keyword)}</b><div class="muted" style="font-size:11px">${t.time} · ${t.count}条模拟视频</div></div>`).join("")}
+function renderVideos(){let el=document.getElementById("videoResults");if(!videos.length){el.innerHTML='<div class="card empty" style="grid-column:1/-1">还没有搜索结果，请先创建搜索任务。</div>';return}el.innerHTML=videos.map(v=>`<div class="card video"><div class="thumb">${v.emoji}</div><div class="video-body"><div class="video-title">${esc(v.title)}</div><div class="video-meta"><span>${esc(v.author)}</span><span>${v.comments.length}条模拟评论</span></div><button class="btn secondary small" onclick="openComments(${v.id})">查看评论</button></div></div>`).join("")}
+function openComments(id){let v=videos.find(x=>x.id===id);if(!v)return;document.getElementById("modalTitle").textContent=v.title;document.getElementById("modalMeta").textContent="作者："+v.author+" · 关键词："+v.keyword+" · "+v.comments.length+"条模拟评论";document.getElementById("modalComments").innerHTML=v.comments.map(c=>`<div style="padding:11px 0;border-bottom:1px solid #26364c"><div style="display:flex;justify-content:space-between"><b>${esc(c[0])}</b><span class="${intentClass(c[2])}">${c[2]}</span></div><div style="margin:6px 0;color:#d4e0f0">${esc(c[1])}</div><div class="muted" style="font-size:10px">${c[3]}</div></div>`).join("");document.getElementById("commentModal").classList.add("show")}
+function closeModal(){document.getElementById("commentModal").classList.remove("show")}
+function intentClass(i){return i==="高意向"?"tag":i==="中意向"?"tag mid":i==="低意向"?"tag low":"tag na"}
+
+function renderLeads(){
+  let q=(document.getElementById("leadSearch")?.value||"").toLowerCase();
+  let f=document.getElementById("intentFilter")?.value||"";
+
+  let arr=leads
+    .map((x,i)=>({...x,_index:i}))
+    .filter(x=>
+      (!q||(x.user+x.comment+x.video+x.keyword).toLowerCase().includes(q)) &&
+      (!f||x.intent===f)
+    );
+
+  document.getElementById("leadCount").textContent=arr.length+"条记录";
+
+  document.getElementById("leadRows").innerHTML=arr.length
+    ? arr.map(x=>`
+      <tr>
+        <td>${esc(x.user)}</td>
+        <td>${esc(x.comment)}</td>
+        <td>${esc(x.video)}</td>
+        <td>${esc(x.time)}</td>
+        <td>
+          <span class="${intentClass(x.intent)}">${esc(x.intent)}</span>
+          <button class="btn secondary small" onclick="deleteLead(${x._index})">删除</button>
+        </td>
+      </tr>
+    `).join("")
+    : '<tr><td colspan="5" class="empty">没有符合条件的记录</td></tr>';
+}
+
+function deleteLead(index){
+  if(!confirm("确定删除这条线索吗？")) return;
+
+  leads.splice(index,1);
+  save();
+  renderLeads();
+  updateUI();
+  toast("线索已删除");
+}
+
+function exportCSV(){if(!leads.length){toast("暂无数据可导出");return}let rows=[["评论者","评论内容","来源视频","评论时间","意向等级","关键词"],...leads.map(x=>[x.user,x.comment,x.video,x.time,x.intent,x.keyword])];let csv="\uFEFF"+rows.map(r=>r.map(v=>'"'+String(v).replace(/"/g,'""')+'"').join(",")).join("\r\n");let blob=new Blob([csv],{type:"text/csv;charset=utf-8;"});let a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="AI智能获客系统_评论数据.csv";a.click();URL.revokeObjectURL(a.href);toast("已导出CSV文件，可用Excel打开")}
+function testRecharge(price,points){balance+=points;rechargeTotal+=price;save();records.unshift({time:new Date().toLocaleString(),type:"模拟充值",desc:"测试充值 ¥"+price+"（非真实支付）",delta:points,balance});updateUI();renderRecords();toast("模拟充值成功，已增加"+money(points)+"算力点")}
+function renderRecords(){document.getElementById("recordRows").innerHTML=records.length?records.map(r=>`<tr><td>${r.time}</td><td>${r.type}</td><td>${r.desc}</td><td style="color:${r.delta>0?"#55d9a6":"#ff9b9b"}">${r.delta>0?"+":""}${money(r.delta)}</td><td>${money(r.balance)}</td></tr>`).join(""):'<tr><td colspan="5" class="empty">暂无记录</td></tr>'}
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+updateUI();renderRecent();
+window.testBackend = function() {
+  alert("前端函数运行成功");
+};
+async function testBackend() {
+  const res = await fetch('/api/test', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ test: '前端发送成功' })
+  });
+
+  const result = await res.json();
+  console.log(result);
+}
+</script>
+</body>
+</html>
