@@ -1,12 +1,16 @@
+
 const express = require('express');
-const path = require('path');
+const cors = require('cors');
 
 const app = express();
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
-// 基础配置
+// 允许前端网站跨域访问
+app.use(cors({
+  origin: 'https://ai-lead-system-py7i.netlify.app'
+}));
+
 app.use(express.json());
-app.use(express.static(__dirname));
 
 // 健康检查
 app.get('/api/health', (req, res) => {
@@ -38,7 +42,7 @@ app.post('/api/search', (req, res) => {
 
   res.json({
     success: true,
-    keyword: keyword,
+    keyword,
     total: 2,
     results: [
       {
@@ -55,7 +59,6 @@ app.post('/api/search', (req, res) => {
   });
 });
 
-// 启动服务器
 app.listen(PORT, () => {
-  console.log(`系统已启动：http://localhost:${PORT}`);
+  console.log('服务已启动，端口：' + PORT);
 });
